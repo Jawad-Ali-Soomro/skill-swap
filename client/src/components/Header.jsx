@@ -1,9 +1,14 @@
 import { GoLink } from "react-icons/go";
 import "../style/header.scss";
 import { useState } from "react";
+import Login from "./Login";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [showLogin, setShowLogin] = useState(false)
+  const onClose = () => {
+    setShowLogin(false)
+  }
   return (
     <div className="header-container flex bw">
       <div className="logo flex">
@@ -29,8 +34,11 @@ const Header = () => {
             }}
           ></div>
         </div>
-        <button>Login</button>
+        <button onClick={() => setShowLogin(true)}>Login</button>
       </div>
+      {
+        showLogin && <Login onClose={onClose} />  
+      }
     </div>
   );
 };

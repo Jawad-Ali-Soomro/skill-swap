@@ -1,8 +1,9 @@
 .header-container {
   width: calc(100% - 100px); 
-  position: fixed ; 
+  position: fixed; 
   top: 20px;
   left: 50px;
+  z-index: 10;
   .logo {
     cursor: pointer;
     .icon {

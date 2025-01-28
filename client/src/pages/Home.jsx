@@ -1,3 +1,4 @@
+
 import Animation from "../components/Animation";
 import "../style/home.scss";
 import { PiCookieLight } from "react-icons/pi";
@@ -34,6 +35,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+     
     </div>
   );
 };
