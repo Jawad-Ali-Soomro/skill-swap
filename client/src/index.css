@@ -1,0 +1,23 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  font-family: "Exo 2";
+}
+
+.col {
+  flex-direction: column;
+}
+
+.bw {
+  justify-content: space-between;
+}
+
+.around {
+  justify-content: space-around;
+}
+
+
