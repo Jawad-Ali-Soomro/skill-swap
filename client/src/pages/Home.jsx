@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 
 import Animation from "../components/Animation";
 import "../style/home.scss";

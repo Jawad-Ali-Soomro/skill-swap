@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { GoLink } from "react-icons/go";
 import "../style/login.scss";
 import { useState } from "react";
+import { FiFacebook, FiGithub, FiLinkedin } from "react-icons/fi";
 
 const Login = ({ onClose }) => {
   const [showPassword, setShowPassword] = useState(true);
@@ -40,6 +42,21 @@ const Login = ({ onClose }) => {
           >
             {isLoading ? <div className="loader flex"></div> : "Login"}
           </button>
+        </div>
+        <div className="or-text flex">
+          <p>OR</p>
+        </div>
+        <div className="more-opt flex">
+          <div className="icon flex">
+            <FiGithub />
+          </div>
+          <div className="icon flex">
+            <FiLinkedin />
+          </div>
+          <div className="icon flex">
+            <FiFacebook />
+          </div>
+          <button>Register</button>
         </div>
       </div>
     </div>
