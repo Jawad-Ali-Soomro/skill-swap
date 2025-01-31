@@ -1,11 +1,11 @@
 .login-container {
-  width: 100vw;
+  width: 100vw !important;
   height: 100vh;
-  background: rgba($color: #000000, $alpha: 0.3);
+  background: rgba($color: #000000, $alpha: 0.5);
   position: absolute;
   top: -20px;
   left: -50px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
   .login-wrapper {
     padding: 50px 30px;
     background-color: white;
@@ -150,6 +150,16 @@
         transform: translateY(0);
         opacity: 1;
       }
+    }
+  }
+}
+
+
+@media (max-width: 420px) {
+  .login-container {
+    left: -20px;
+    .login-wrapper {
+      padding: 30px 10px;
     }
   }
 }
