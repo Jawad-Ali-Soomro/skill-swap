@@ -159,7 +159,15 @@
   .login-container {
     left: -20px;
     .login-wrapper {
-      padding: 30px 10px;
+      padding: 50px 25px;
+     .form {
+      .input-wrapper {
+        width: 280px;
+      }
+      .btn-login {
+        margin-left: 160px;
+      }
+     }
     }
   }
 }
