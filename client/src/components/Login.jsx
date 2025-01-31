@@ -6,8 +6,9 @@ import { useState } from "react";
 import { FiFacebook, FiGithub, FiLinkedin } from "react-icons/fi";
 
 const Login = ({ onClose }) => {
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   return (
     <div className="login-container flex" onClick={onClose}>
       <div
@@ -17,8 +18,13 @@ const Login = ({ onClose }) => {
         <div className="logo flex">
           <GoLink />
         </div>
-        <h1>Hi There!</h1>
+        <h1>{isRegistering ? "Let's Begin!" : "Hi There!"}</h1>
         <div className="form flex col">
+          {isRegistering && (
+            <div className="input-wrapper flex">
+              <input type="text" placeholder="Username" />
+            </div>
+          )}
           <div className="input-wrapper flex">
             <input type="text" placeholder="Email Address" />
           </div>
@@ -34,13 +40,15 @@ const Login = ({ onClose }) => {
               {showPassword ? "HIDE" : "SHOW"}
             </div>
           </div>
-          <div className="forgot-text flex">Forgot Password?</div>
+          {!isRegistering && (
+            <div className="forgot-text flex">Forgot Password?</div>
+          )}
           <button
             className="btn-login flex"
             disabled={isLoading}
             style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
           >
-            {isLoading ? <div className="loader flex"></div> : "Login"}
+            {isLoading ? <div className="loader flex"></div> : isRegistering ? "Register" : "Login"}
           </button>
         </div>
         <div className="or-text flex">
@@ -56,7 +64,7 @@ const Login = ({ onClose }) => {
           <div className="icon flex">
             <FiFacebook />
           </div>
-          <button>Register</button>
+          <button onClick={() => setIsRegistering(!isRegistering)}>{isRegistering ? "Login" : "Register"}</button>
         </div>
       </div>
     </div>
