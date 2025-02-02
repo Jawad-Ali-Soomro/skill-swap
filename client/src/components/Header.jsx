@@ -8,6 +8,8 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
+  const isLoggedIn = window.localStorage.getItem("_skillink_auth_token");
+
   const onClose = () => {
     setShowLogin(false);
   };
@@ -31,14 +33,44 @@ const Header = () => {
             }}
           >
             <ul className="flex col">
-              <li className="flex">Your Profile</li>
-              <li className="flex">Your Skills</li>
-              <li className="flex">Find Skills</li>
-              <li className="flex">Latest News</li>
+              <li
+                className="flex"
+                onClick={() =>
+                  isLoggedIn ? navigate("/profile") : setShowLogin(true)
+                }
+              >
+                Your Profile
+              </li>
+              <li
+                className="flex"
+                onClick={() =>
+                  isLoggedIn ? navigate("/profile") : setShowLogin(true)
+                }
+              >
+                Your Skills
+              </li>
+              <li
+                className="flex"
+                onClick={() =>
+                  isLoggedIn ? navigate("/find-skills") : setShowLogin(true)
+                }
+              >
+                Find Skills
+              </li>
+              <li className="flex"
+              onClick={() =>
+                navigate("/latest-news")
+              }
+              >Latest News</li>
             </ul>
           </div>
         </div>
-        <button onClick={() => setShowLogin(true)}>Login</button>
+        {!isLoggedIn && (
+          <button onClick={() => setShowLogin(true)}>Login</button>
+        )}
+        {isLoggedIn && (
+          <button onClick={() => window.localStorage.clear()}>Logout</button>
+        )}
       </div>
       {showLogin && <Login onClose={onClose} />}
     </div>
