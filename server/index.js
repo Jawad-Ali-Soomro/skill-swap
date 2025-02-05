@@ -5,6 +5,9 @@ const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+require('dotenv').config({
+    path: './config/.env'
+})
 app.use(cors());
 app.use(express.json());
 io.on("connection", (socket) => {
@@ -14,6 +17,6 @@ io.on("connection", (socket) => {
     console.log("A user disconnected");
   });
 });
-server.listen(4000, () => {
-  console.log("Server is running on port 4000");
+server.listen(process.env.PORT, () => {
+  console.log(`server is running on port ${process.env.PORT}`);
 });
