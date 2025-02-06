@@ -7,16 +7,17 @@ const userSchema = new mongoose.Schema(
     },
     handle: {
       type: String,
-      unique: [true, "This handle has been taken already!"],
+      unique: true,
     },
     email: {
       type: String,
-      unique: [true, "Email has been registered with another account!"],
-      required: [true, "Email is required!"],
+      unique: true,
+      required: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required!"],
+      required: true,
+      select: false,
     },
     avatar: {
       type: String,
