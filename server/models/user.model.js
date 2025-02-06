@@ -62,6 +62,14 @@ const userSchema = new mongoose.Schema(
         type: String,
         default: "",
       },
+      linkedIn: {
+        type: String,
+        default: "",
+      },
+      github: {
+        type: String,
+        default: "",
+      },
     },
     rating: {
       type: Number,

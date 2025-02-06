@@ -1,3 +1,17 @@
-const { newUser, loginUser, getProfile } = require("./user.controller");
+const {
+  newUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  toggleFollow,
+  suggestUsers,
+} = require("./user.controller");
 
-module.exports = { newUser, loginUser, getProfile };
+module.exports = {
+  newUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  toggleFollow,
+  suggestUsers,
+};

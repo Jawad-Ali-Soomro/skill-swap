@@ -92,4 +92,90 @@ const getProfile = async (req, res) => {
   }
 };
 
-module.exports = { newUser, loginUser, getProfile };
+const updateProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { ...req.body },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+const toggleFollow = async (req, res) => {
+  try {
+    const { currentUserId, targetUserId } = req.body;
+
+    if (currentUserId === targetUserId) {
+      return res.status(400).json({ message: "You can't follow yourself" });
+    }
+    const currentUser = await User.findById(currentUserId);
+    const targetUser = await User.findById(targetUserId);
+    if (!currentUser || !targetUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const isFollowing = currentUser.following.includes(targetUserId);
+    if (isFollowing) {
+      currentUser.following = currentUser.following.filter(
+        (id) => id.toString() !== targetUserId
+      );
+      targetUser.followers = targetUser.followers.filter(
+        (id) => id.toString() !== currentUserId
+      );
+      await currentUser.save();
+      await targetUser.save();
+      return res
+        .status(200)
+        .json({ message: "User unfollowed successfully", followed: false });
+    } else {
+      currentUser.following.push(targetUserId);
+      targetUser.followers.push(currentUserId);
+      await currentUser.save();
+      await targetUser.save();
+      return res
+        .status(200)
+        .json({ message: "User followed successfully", followed: true });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+const suggestUsers = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+    const suggestedUsers = await User.find({
+      _id: { $nin: [...user.following, userId] },
+    }).limit(5);
+    res.status(200).json(suggestedUsers);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
+module.exports = {
+  newUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  toggleFollow,
+  suggestUsers,
+};
