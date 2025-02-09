@@ -23,7 +23,10 @@ const newPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate("author", "userName handle position email avatar")
+      .populate(
+        "author",
+        "userName handle position email avatar followers following"
+      )
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
