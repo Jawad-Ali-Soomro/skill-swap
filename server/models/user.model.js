@@ -5,6 +5,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    bgImage: {
+      type: String,
+      default: "",
+    },
+    position: {
+      type: String,
+      default: "Student",
+    },
     handle: {
       type: String,
       unique: true,
@@ -85,6 +93,18 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+      },
+    ],
+    createdPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+    likedPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
       },
     ],
   },

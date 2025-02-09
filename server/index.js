@@ -7,13 +7,14 @@ const routes = require("./routes");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-require('dotenv').config({
-    path: './config/.env'
-})
+require("dotenv").config({
+  path: "./config/.env",
+});
 app.use(cors());
-connectDB()
 app.use(express.json());
-app.use('/route', routes)
+app.use(express.static("assets"));
+connectDB();
+app.use("/route", routes);
 io.on("connection", (socket) => {
   console.log("A user connected");
   socket.on("disconnect", () => {

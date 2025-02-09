@@ -8,9 +8,7 @@ const newUser = async (req, res) => {
   try {
     const findUser = await User.findOne({ email: req.body.email });
     if (findUser) {
-      return res
-        .status(409)
-        .json({ msg: "The account with this email already exists!" });
+      return res.status(409).json({ msg: "account exists already!" });
     }
 
     const encrypted = await hashPassword(req.body.password);
@@ -158,7 +156,6 @@ const suggestUsers = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId);
-
     if (!user) return res.status(404).json({ message: "User not found" });
     const suggestedUsers = await User.find({
       _id: { $nin: [...user.following, userId] },
@@ -171,6 +168,20 @@ const suggestUsers = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  const { userId } = req.params;
+  const foundUser = await User.findById(userId)
+    .populate("skills")
+    .populate("followers")
+    .populate("following");
+  if (foundUser) {
+    return res.status(200).json({
+      message: "Found",
+      foundUser,
+    });
+  }
+};
+
 module.exports = {
   newUser,
   loginUser,
@@ -178,4 +189,5 @@ module.exports = {
   updateProfile,
   toggleFollow,
   suggestUsers,
+  getUserInfo,
 };

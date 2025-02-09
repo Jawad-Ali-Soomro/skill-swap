@@ -1,3 +1,4 @@
+const { newPost, getAllPosts } = require("./post.controller");
 const {
   newUser,
   loginUser,
@@ -5,6 +6,7 @@ const {
   updateProfile,
   toggleFollow,
   suggestUsers,
+  getUserInfo,
 } = require("./user.controller");
 
 module.exports = {
@@ -14,4 +16,7 @@ module.exports = {
   updateProfile,
   toggleFollow,
   suggestUsers,
+  getUserInfo,
+  newPost,
+  getAllPosts,
 };
