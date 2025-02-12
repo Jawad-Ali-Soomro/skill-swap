@@ -41,4 +41,48 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { newPost, getAllPosts };
+const likePost = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const { postId } = req.params;
+
+    if (!userId || !postId) {
+      return res
+        .status(400)
+        .json({ message: "User ID and Post ID are required" });
+    }
+
+    const user = await User.findById(userId);
+    const post = await Post.findById(postId);
+
+    if (!user || !post) {
+      return res.status(404).json({ message: "User or Post not found" });
+    }
+
+    const isLiked = post.likes.includes(userId);
+
+    if (isLiked) {
+      post.likes = post.likes.filter((id) => id.toString() !== userId);
+      user.likedPosts = user.likedPosts.filter(
+        (id) => id.toString() !== postId
+      );
+    } else {
+      post.likes.push(userId);
+      user.likedPosts.push(postId);
+    }
+
+    await user.save();
+    await post.save();
+
+    res.json({
+      message: isLiked ? "Post unliked" : "Post liked",
+      likes: post.likes, // Sending updated likes array
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error processing request", error: error.message });
+  }
+};
+
+module.exports = { newPost, getAllPosts, likePost };
