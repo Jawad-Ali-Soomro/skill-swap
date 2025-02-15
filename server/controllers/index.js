@@ -1,4 +1,5 @@
 const { newPost, getAllPosts, likePost } = require("./post.controller");
+const { newSkill } = require("./skill.controller");
 const {
   newUser,
   loginUser,
@@ -20,4 +21,5 @@ module.exports = {
   newPost,
   getAllPosts,
   likePost,
+  newSkill,
 };
