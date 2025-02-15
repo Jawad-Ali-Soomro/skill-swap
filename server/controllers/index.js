@@ -1,5 +1,11 @@
 const { newPost, getAllPosts, likePost } = require("./post.controller");
-const { newSkill } = require("./skill.controller");
+const {
+  findSkillByUser,
+  newSkill,
+  getAllSkills,
+  getSkill,
+  findSkillByCategory,
+} = require("./skill.controller");
 const {
   newUser,
   loginUser,
@@ -22,4 +28,8 @@ module.exports = {
   getAllPosts,
   likePost,
   newSkill,
+  getAllSkills,
+  getSkill,
+  findSkillByCategory,
+  findSkillByUser,
 };
