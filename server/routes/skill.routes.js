@@ -4,6 +4,7 @@ const {
   getAllSkills,
   getSkill,
   findSkillByCategory,
+  findSkillByUser,
 } = require("../controllers");
 const skillRoute = express.Router();
 

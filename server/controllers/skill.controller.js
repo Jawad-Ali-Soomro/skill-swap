@@ -1,9 +1,13 @@
-const { Skill } = require("../models");
+const { Skill, User } = require("../models");
 
 const newSkill = async (req, res) => {
   try {
-    const createdSkill = await Skill.create(req.body);
+    const { userId } = req.body;
+    const foundUser = await User.findById(userId);
+    const createdSkill = await Skill.create({ ...req.body, user: userId });
     if (createdSkill) {
+      foundUser.skills.push(createdSkill._id);
+      await foundUser.save();
       return res.status(200).json({ msg: "Skill Created!", createdSkill });
     }
   } catch (error) {

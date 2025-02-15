@@ -173,7 +173,9 @@ const getUserInfo = async (req, res) => {
   const foundUser = await User.findById(userId)
     .populate("skills")
     .populate("followers")
-    .populate("following");
+    .populate("following")
+    .populate("likedPosts")
+    .populate("createdPosts");
   if (foundUser) {
     return res.status(200).json({
       message: "Found",
